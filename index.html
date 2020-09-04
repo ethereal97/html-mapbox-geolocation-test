@@ -36,7 +36,7 @@
     </div>
     
     <div class="ui segment">
-      <span class="status" id=""></span> Lat: <span id="lat">(NA)</span>, Lng: <span id="lng">(NA)</span> (approx. <span id="accuracy"></span>m)
+      <span class="status"></span> Lat: <span id="lat">(NA)</span>, Lng: <span id="lng">(NA)</span> (approx. <span id="accuracy"></span>m)
     </div>
     
     <div class="ui form">
@@ -49,8 +49,7 @@
     </div>
     
     <div class="ui container">
-      <button class="ui button" onclick="changeLat()">Change Latitude</button>
-      <button class="ui button" onclick="changeLng()">Change Longitude</button>
+      <button class="ui red button" onclick="stopWatching(this)">Stop</button>
     </div>
     
   </div>
@@ -60,7 +59,11 @@
     const app = {
       pin: null,
       map: null,
-      onload: []
+      onload: [],
+      lat: 16,
+      lng: 92,
+      watched: null,
+      target: null
     };
   </script>
   

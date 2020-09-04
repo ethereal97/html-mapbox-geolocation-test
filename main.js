@@ -11,47 +11,29 @@ if (document.body) {
   window.addEventListener('load', () => document.body.style.hidden=false);
 }
 
-let attemptGeoPerm = [0, 5];
-
 function accessGeoPermission(btn) {
   btn.classList.add('disabled');
   btn.setAttribute('disabled', true);
   
   if (! 'geolocation' in window.navigator) {
-    console.error('Your device or browser does not support location service.');
+    console.info('Device not support geolocation');
     return false;
   }
   
-  let geoloc = window.navigator.geolocation;
-  let curpos;
+  let geo = window.navigator.geolocation;
   
-  let callback = function (currentPosition) {
-    let tof = attemptGeoPerm.pop();
-    clearTimeout(tof);
-    
-    if (! currentPosition) {
-      alert('Failed to access location services.')
-      if (attemptGeoPerm[0] >= attemptGeoPerm[1]) {
-        return;
-      }
-      attemptGeoPerm[0]++;
+  let callback = function (pos) {
+    if (! pos) {
+      alert('Failed to access location services.');
+      return;
     } else {
-      curpos = currentPosition;
-      setCurrentGeo(curpos);
+      app.target = pos;
+      setCurrentGeo(pos);
     }
     btn.remove();
-  }
+  };
   
-  geoloc.watchPosition(callback);
-  
-  attemptGeoPerm.push(setTimeout(function () {
-    btn.classList.remove('disabled');
-    btn.removeAttribute('disabled');
-    attemptGeoPerm.pop();
-    alert('Too long to resolve your current location');
-  }, 5000));
-  
-  console.log('Button Action has been triggered');
+  app.watched = geo.watchPosition(callback, ({message}) => alert(message));
 }
 
 function setCurrentGeo({coords, timestamp}) {
@@ -68,11 +50,8 @@ function setCurrentGeo({coords, timestamp}) {
   app.lat = latitude;
   app.lng = longitude;
   
-  if (status.id === 'x') {
-    status.id = 'o';
-  } else {
-    status.id = 'x';
-  }
+  status.style.background = 'white';
+  setTimeout(() =>   status.style.background = 'green', 500);
   
   try {
     if(!app.pin) {
@@ -81,7 +60,8 @@ function setCurrentGeo({coords, timestamp}) {
        .addTo(app.map)
        .setPopup(new mapboxgl.Popup().setHTML('<p class="ui text-muted">Current Location</p>'))
     } else {
-      app.pin.setLngLat([longitude, latitude])
+      app.pin.setLngLat([longitude, latitude]);
+      flyTo(latitude, longitude)
     }
     document.querySelector('span#lat').innerText = latitude.toFixed(5)
     document.querySelector('span#lng').innerText = longitude.toFixed(5)
@@ -108,5 +88,4 @@ function setCurrentGeo({coords, timestamp}) {
     
     ico.addEventListener('click', () => div.remove())
   }
-    
-  }
+}

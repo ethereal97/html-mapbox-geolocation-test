@@ -9,18 +9,10 @@ body {
   margin: 5px;
   border-radius: 100%;
   background: grey;
-}
-
-.status#x {
-  background: red;
-}
-
-.status#o {
-  background: green;
+  transition: all 360ms ease;
 }
 
 #map {
-  /* position: absolute; */
   top: 0; 
   bottom: 0; 
   width: 100%;

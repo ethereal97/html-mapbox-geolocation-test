@@ -16,46 +16,23 @@ app.onload.push(function () {
   }
 });
 
-function changeLat() {
-  let desc = "Input to set the current latitude"
-  let inp = prompt(desc, app.lat || '');
-  
-  app.pin.setLngLat([inp, app.lng|| 0]);
-  
-  if (! inp) return;
-  
-  let coords = {
-    latitude: app.lat,
-    longitude: inp,
-    attutude: null,
-    accuracy: 10,
-    speed: null
-  };
-  
-  setCurrentGeo({
-    coords,
-    timestamp: (new Date).getTime()
+function flyTo(lat, lng) {
+  if (!app.map || !lat || !lng) {
+    return false;
+  }
+  app.map.flyTo({
+    center: [ lng, lat ],
+    essential: true
   });
 }
 
-function changeLng() {
-  let desc = "Input to set the current longitude"
-  let inp = prompt(desc, app.lng);
-  
-  if (! inp) return;
-  
-  app.pin.setLngLat([inp, app.lat]);
-  
-  let coords = {
-    latitude: inp,
-    longitude: app.lng,
-    attutude: null,
-    accuracy: 10,
-    speed: null
-  };
-  
-  setCurrentGeo({
-    coords,
-    timestamp: (new Date).getTime()
-  });
+function stopWatching(el) {
+  if (!app.watched) {
+    console.info('location is not watching...');
+    return false;
+  }
+  el && el.remove();
+  window.navigator.geolocation.clearWatch(app.watched);
+  app.watched = null;
+  document.querySelector('span.status').style.background = 'red';
 }
