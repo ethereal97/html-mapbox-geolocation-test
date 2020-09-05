@@ -69,4 +69,6 @@ function getNearbyStops(btn) {
     
     document.querySelector('#nearby').appendChild(stop);
   });
+  
+  btn ? btn.remove() : document.querySelector('.ui.button#find-stops').remove();
 }
