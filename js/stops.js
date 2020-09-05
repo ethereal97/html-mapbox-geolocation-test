@@ -65,6 +65,7 @@ function getNearbyStops(btn) {
     
     stop = document.createElement('li');
     stop.innerText = info
+    stop.className = 'item'
     
     document.querySelector('#nearby').appendChild(stop);
   });
