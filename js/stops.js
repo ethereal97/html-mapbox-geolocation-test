@@ -1,4 +1,4 @@
-fetch('stops.json')
+fetch('data/stops.json')
   .then(res => res.json())
   .then(data => {
     app.stops = data;
@@ -41,6 +41,7 @@ function getNearbyStops(btn) {
   
   Object.values(app.nearby).forEach(stop => {
     var {
+      id,
       name_en,
       name_mm,
       township_en,
@@ -50,10 +51,11 @@ function getNearbyStops(btn) {
     } = stop;
     
     var info = `${name_en}, ${township_en} (${name_mm}, ${township_mm})`;
-    
+    var buses = getBusLists(id);
+
     let bus_stop = new mapboxgl.Marker()
                     .setLngLat([lng, lat])
-                    .setPopup(new mapboxgl.Popup().setHTML('<p>' + info + '</p>'))
+                    .setPopup(new mapboxgl.Popup().setHTML('<p>' + info + '<br><code>' + buses.join(',') + '</code></p>'))
                     .addTo(app.map);
     
     flyTo(lat, lng);
