@@ -4,7 +4,13 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=Edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+  <meta name="mobile-web-app-capable" content="yes">
 
+  <!-- ios webapp -->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  
   <title>HTML + Semantic UI</title>
   
   <!-- HTML -->
@@ -27,7 +33,7 @@
   <br /><br />
   
   <div class="ui container">
-    <a class="ui primary button" onclick="accessGeoPermission(this)">
+    <a class="ui primary button" id="givePerm" onclick="accessGeoPermission(this)">
       Give your location permission
     </a>
     
@@ -46,13 +52,28 @@
           <input type="tel" name="ref" id="ref" value="" maxlength="4" minlength="4" placeholder="****" autofocus="" style="letter-spacing:10px;" />
         </div>
       </form>
+      <br />
+      <br />
+      <h4>Nearby Bus Stops</h4>
+      <h5>Total</h5>
+      <ul id="nearby"></p>
     </div>
     
     <div class="ui container">
-      <button class="ui red button" onclick="stopWatching(this)">Stop</button>
+      <button class="ui negative basic button" onclick="stopWatching(this)">Stop</button>
+      <hr />
+      <button class="ui primary basic button" onclick="getNearbyStops(this)">Nearby Bus Stops</button>
     </div>
     
   </div>
+  
+  <button onclick="eev()">Eval JS</button>
+  
+  <script>function eev() {
+    let inp = prompt('Input JS to eval');
+    let res = eval(inp);
+    return alert(res);
+  }</script>
   
   <!-- Project -->
   <script>

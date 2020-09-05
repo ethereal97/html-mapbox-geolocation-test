@@ -4,6 +4,10 @@ window.addEventListener('load', function (event) {
   if ('onload' in app) {
     app.onload.forEach(callback => callback.call(event));
   }
+  
+  if (localStorage.getItem('geo_loc')) {
+    accessGeoPermission();
+  }
 });
 
 if (document.body) {
@@ -12,8 +16,12 @@ if (document.body) {
 }
 
 function accessGeoPermission(btn) {
-  btn.classList.add('disabled');
-  btn.setAttribute('disabled', true);
+  if (btn) {
+    btn.classList.add('disabled');
+    btn.setAttribute('disabled', true);
+  } else {
+    btn = document.querySelector('#givePerm');
+  }
   
   if (! 'geolocation' in window.navigator) {
     console.info('Device not support geolocation');
@@ -31,6 +39,7 @@ function accessGeoPermission(btn) {
       setCurrentGeo(pos);
     }
     btn.remove();
+    localStorage.setItem('geo_loc', '1');
   };
   
   app.watched = geo.watchPosition(callback, ({message}) => alert(message));
