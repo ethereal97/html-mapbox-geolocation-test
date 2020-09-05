@@ -24,17 +24,18 @@
   <script src='https://api.mapbox.com/mapbox-gl-js/v1.12.0/mapbox-gl.js'></script>
   <link href='https://api.mapbox.com/mapbox-gl-js/v1.12.0/mapbox-gl.css' rel='stylesheet' />
 
-
   <!-- Custom Styles -->
   <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
-  <nav class="ui secondary pointing menu">
-    <a class="active item" href="index.html">Home</a>
-    <a class="item" href="routes.html">Find Routes</a>
+   <nav class="ui secondary pointing menu">
+    <a class="item" href="index.html">Home</a>
+    <a class="active item" href="routes.html">Find Routes</a>
   </nav>
+ 
   <br />
+  
   <div class="ui container">
     <a class="ui primary button" id="givePerm" onclick="accessGeoPermission(this)">
       Give your location permission
@@ -45,32 +46,26 @@
     </div>
     
     <div class="ui segment">
-      <span class="status"></span> Lat: <span id="lat">(NA)</span>, Lng: <span id="lng">(NA)</span> (approx. <span id="accuracy"></span>m)
-    </div>
-    
-    <div class="ui container">
-      <button class="ui negative basic button" onclick="stopWatching(this)">Stop</button>
-      <hr />
-      <button class="ui primary basic button" id="find-stops" onclick="getNearbyStops(this)">Nearby Bus Stops</button>
+      <form class="ui form" action="" method="get" accept-charset="utf-8" id="route-finder">
+        <div class="field">
+          <label for="start">Starting Point</label>
+          <input type="text" name="start" id="start" value="" />
+        </div>
+        <div class="field">
+          <label for="dest">Ending Point</label>
+          <input type="text" name="dest" id="dest" value="37" />
+        </div>
+        <button class="ui button" type="submit">Find Routes</button>
+      </form>
     </div>
     
     <br />
     
     <div class="ui container">
-      <h3>Nearby Bus Stop(s)</h3>
-      
-      <ul class="ui list" id="nearby">
-        <!-- near by bus stop will show here -->
-      </ul>
+      <button class="ui negative basic button" onclick="stopWatching(this)">Stop</button>
     </div>
+  
   </div>
-  
-  <br />
-  <br />
-  
-  <center>
-    <button class="ui button basic" onclick="eev()">Eval JS</button>
-  </center>
   
   <br />
   <hr />
@@ -78,12 +73,6 @@
   <div class="ui container" style="magin-top:20px;margin-bottom:20px;">
     <p style="color:grey;font-size:8px;">&copy; 2020 Ethereal. All Right Reserved.</p>
   </div>
-  
-  <script>function eev() {
-    let inp = prompt('Input JS to eval');
-    let res = eval(inp);
-    return alert(res);
-  }</script>
   
   <!-- Project -->
   <script>
@@ -99,11 +88,12 @@
   </script>
   
   <script src="js/map.js"></script>
-
   <script src="main.js"></script>
-  
+ 
   <script src="js/stops.js"></script>
   <script src="js/routes.js"></script>
+  <script src="js/routes-finder.js"></script>
 
 </body>
+
 </html>

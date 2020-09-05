@@ -57,15 +57,14 @@ function getNearbyStops(btn) {
                     .setLngLat([lng, lat])
                     .setPopup(new mapboxgl.Popup().setHTML('<p>' + info + '<br><code>' + buses.join(',') + '</code></p>'))
                     .addTo(app.map);
-    
-    flyTo(lat, lng);
-    
+
     stop = document.createElement('li');
     stop.innerText = info
     stop.className = 'item'
     
-    document.querySelector('#nearby').appendChild(stop);
+    var el = document.querySelector('#nearby');
+    el && el.appendChild(stop);
   });
   
-  btn ? btn.remove() : document.querySelector('.ui.button#find-stops').remove();
+  btn && btn.remove();
 }

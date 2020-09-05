@@ -1,19 +1,13 @@
 //* 2020, Ethereal.
 
 window.addEventListener('load', function (event) {
+  localStorage.getItem('geo_loc') && accessGeoPermission();
+
   if ('onload' in app) {
     app.onload.forEach(callback => callback.call(event));
   }
   
-  if (localStorage.getItem('geo_loc')) {
-    accessGeoPermission();
-  }
 });
-
-if (document.body) {
-  document.body.style.hidden = true;
-  window.addEventListener('load', () => document.body.style.hidden=false);
-}
 
 function accessGeoPermission(btn) {
   if (btn) {
@@ -38,7 +32,7 @@ function accessGeoPermission(btn) {
       app.target = pos;
       setCurrentGeo(pos);
     }
-    btn.remove();
+    btn && btn.remove();
     localStorage.setItem('geo_loc', '1');
   };
   
@@ -59,8 +53,10 @@ function setCurrentGeo({coords, timestamp}) {
   app.lat = latitude;
   app.lng = longitude;
   
-  status.style.background = 'white';
-  setTimeout(() =>   status.style.background = 'green', 500);
+  if (status) {
+    status.style.background = 'white';
+    setTimeout(() =>   status.style.background = 'green', 500);
+  }
   
   try {
     if(!app.pin) {
@@ -70,12 +66,14 @@ function setCurrentGeo({coords, timestamp}) {
        .setPopup(new mapboxgl.Popup().setHTML('<p class="ui text-muted">Current Location</p>'))
     } else {
       app.pin.setLngLat([longitude, latitude]);
-      flyTo(latitude, longitude)
+      flyTo(latitude, longitude);
     }
-    document.querySelector('span#lat').innerText = latitude.toFixed(5)
-    document.querySelector('span#lng').innerText = longitude.toFixed(5)
-    document.querySelector('span#accuracy').innerText = accuracy.toFixed(2)
-
+    
+    if (status) {
+      document.querySelector('span#lat').innerText = latitude.toFixed(5);
+      document.querySelector('span#lng').innerText = longitude.toFixed(5);
+      document.querySelector('span#accuracy').innerText = accuracy.toFixed(2);
+    }
   } catch (e) {
     let div = document.createElement('div')
     let ico = document.createElement('i')

@@ -31,8 +31,14 @@ function stopWatching(el) {
     console.info('location is not watching...');
     return false;
   }
+  
   el && el.remove();
+  
   window.navigator.geolocation.clearWatch(app.watched);
+  
   app.watched = null;
-  document.querySelector('span.status').style.background = 'red';
+  
+  let status = document.querySelector('span.status');
+  
+  if (status) status.style.background = 'red';
 }
