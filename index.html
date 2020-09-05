@@ -45,29 +45,26 @@
       <span class="status"></span> Lat: <span id="lat">(NA)</span>, Lng: <span id="lng">(NA)</span> (approx. <span id="accuracy"></span>m)
     </div>
     
-    <div class="ui form">
-      <form action="?" method="GET">
-        <div class="ui form-field">
-          <label for="ref">Enter your Reference Number</label>
-          <input type="tel" name="ref" id="ref" value="" maxlength="4" minlength="4" placeholder="****" autofocus="" style="letter-spacing:10px;" />
-        </div>
-      </form>
-      <br />
-      <br />
-      <h4>Nearby Bus Stops</h4>
-      <h5>Total</h5>
-      <ul id="nearby"></p>
-    </div>
-    
     <div class="ui container">
       <button class="ui negative basic button" onclick="stopWatching(this)">Stop</button>
       <hr />
       <button class="ui primary basic button" onclick="getNearbyStops(this)">Nearby Bus Stops</button>
     </div>
-    
   </div>
   
-  <button onclick="eev()">Eval JS</button>
+  <br />
+  <br />
+  
+  <center>
+    <button class="ui button basic" onclick="eev()">Eval JS</button>
+  </center>
+  
+  <br />
+  <hr />
+  
+  <div class="ui container" style="magin-top:20px;margin-bottom:20px;">
+    <p style="color:grey;font-size:8px;">&copy; 2020 Ethereal. All Right Reserved.</p>
+  </div>
   
   <script>function eev() {
     let inp = prompt('Input JS to eval');
