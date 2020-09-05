@@ -15,11 +15,6 @@ function addStopsOnMap(map) {
 function getNearbyStops(btn) {
   if (!app.stops || !app.lat || !app.lng) return;
   
-  var min_lat = app.lat - 0.3;
-  var max_lat = app.lat + 0.3;
-  var min_lng = app.lng - 0.3;
-  var max_lng = app.lng + 0.3;
-  
   var nearby = [];
 
   for (let i in app.stops) {
