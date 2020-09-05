@@ -1,9 +1,9 @@
-fetch('/stops.json')
+fetch('stops.json')
   .then(res => res.json())
   .then(data => {
     app.stops = data;
   });
-  
+
 function addStopsOnMap(map) {
   let ico = new mapboxgl.Marker();
   
