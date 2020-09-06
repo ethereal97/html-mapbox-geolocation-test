@@ -25,11 +25,13 @@ app.onload.push(function () {
       rff.start.value = start;
       rff.dest.value = dest;
       acb = () => {
-        let rts = findRoutes(start, dest);
-        
-        if (typeof rts === 'Number') {
+        try {
+          let rts = findRoutes(start, dest);
+          let rst = document.querySelector('#routes-result');
           
-          return;
+          rts.forEach(r => showDirectRoute(rst, r));
+        } catch (e) {
+          alert(e.message);
         }
       };
     }
@@ -40,10 +42,25 @@ function findRoutes(start, end) {
   let stt = getBusLists(start);
   let dst = getBusLists(end);
   
+  let lines = [];
+  
   for (let i in dst) {
-    if (stt.includes(dst[i])) {
-      return dst[i];
+    var a = dst[i];
+    if (stt.includes(Number(a)) || stt.includes(a)) {
+      lines.push(a);
     }
-    
   }
+  
+  return lines;
+}
+
+function showDirectRoute(parent, line) {
+  let el = document.createElement('a');
+  let img = document.createElement('img');
+  img.src = 'bus-icon.jpg';
+  img.alt = 'line';
+  el.className = 'ui image label';
+  el.append(img);
+  el.innerHTML += "\r\n" + line;
+  return parent ? parent.appendChild(el) : el;
 }

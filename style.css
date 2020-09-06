@@ -17,3 +17,8 @@ body {
   bottom: 0; 
   width: 100%;
 }
+
+#dbg {
+  font-size: 8px;
+  letter-spacing: 2;
+}
